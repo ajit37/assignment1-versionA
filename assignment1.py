@@ -3,9 +3,9 @@
 '''
 OPS435 Assignment 1 - Summer 2023
 Program: assignment1.py 
-Author: "Student Name"
-The python code in this file (a1_[Student_id].py) is original work written by
-"Student Name". No code in this file is copied from any other source
+Author: Ajit Virk
+The python code in this file (a1_avirk18.py) is original work written by
+Ajit Virk. No code in this file is copied from any other source
 except those provided by the course instructor, including any person,
 textbook, or on-line resource. I have not shared this python script
 with anyone or anything except for submission for grading. I understand
@@ -27,7 +27,16 @@ def day_of_week(year: int, month: int, date: int) -> str:
 
 def mon_max(month:int, year:int) -> int:
     "returns the maximum day for a given month. Includes leap year check"
-    ...
+    if month == 2:
+    #Using the leap year rule in the if statement to determin leap year
+        if leap_year(year):
+            return 29 
+        else:
+            return 28
+    elif month in [4,6,9,11]:
+        return 30 
+    else:
+        return 31
 
 def after(date: str) -> str:
     '''
@@ -67,6 +76,7 @@ def usage():
 
 
 def leap_year(year: int) -> bool:
+    return (year % 4 == 0 and (year % 100 != 0 or year % 400 == 0))
     "return True if the year is a leap year"
     ...
 
