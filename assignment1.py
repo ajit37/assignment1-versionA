@@ -82,11 +82,66 @@ def leap_year(year: int) -> bool:
 
 def valid_date(date: str) -> bool:
     "check validity of date and return True if valid"
-    ...
+
+    # Step 1: Check if the date is in the correct format (YYYY-MM-DD)
+    if len(date) != 10:
+        return False
+    if date[4] != '-' or date[7] != '-':
+        return False
+
+    # Step 2: Split the date into year, month, and day
+    try:
+        year = int(date[:4])
+        month = int(date[5:7])
+        day = int(date[8:])
+    except ValueError:
+        return False  # If conversion to integer fails, it's an invalid date
+
+    # Step 3: Check if the month is valid (1-12)
+    if not (1 <= month <= 12):
+        return False
+
+    # Step 4: Check if the day is valid based on the month and year
+    # Days in each month for non-leap years
+    days_in_month = {
+        1: 31, 2: 28, 3: 31, 4: 30, 5: 31, 6: 30,
+        7: 31, 8: 31, 9: 30, 10: 31, 11: 30, 12: 31
+    }
+
+    # Adjust February days for leap years
+    if leap_year(year):
+        days_in_month[2] = 29
+
+    # Step 5: Check if the day is valid for the given month
+    if not (1 <= day <= days_in_month[month]):
+        return False
+
+    # If all checks pass, the date is valid
+    return True
 
 def day_count(start_date: str, stop_date: str) -> int:
-    "Loops through range of dates, and returns number of weekend days"
-    ...
+#    "Loops through range of dates, and returns number of weekend days"
+      
+    if not valid_date(start_date) or not valid_date(stop_date):
+        raise ValueError("Invalid date format. Use YYYY-MM-DD.")
+    
+    weekend_count = 0
+    current_date = start_date
+
+    # Loop until the current date is the stop date
+    while current_date <= stop_date:
+        year, month, day = map(int, current_date.split('-'))
+        weekday = day_of_week(year, month, day)
+        
+        # Check if the day is a weekend (Saturday or Sunday)
+        if weekday == 'sun' or weekday == 'sat':
+            weekend_count += 1
+
+        # Move to the next day
+        current_date = after(current_date)
+
+    return weekend_count
+
 
 if __name__ == "__main__":
     ...
