@@ -178,7 +178,7 @@ def day_count(start_date: str, stop_date: str) -> int:
         # Move to the next day
         current_date = after(current_date)
 
-    return print(f"The period between {start_date} and {stop_date} includes {weekend_count} weekend days.")
+    return (f"The period between {start_date} and {stop_date} includes {weekend_count} weekend days.")
 
 
 if __name__ == "__main__":
